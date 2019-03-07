@@ -56,19 +56,19 @@ const CustomDrawerContentComponent = (props) => (
 
 const AppDrawerNavigator = createDrawerNavigator({
   
-	Home:{
-		screen:HomeScreenStack,
-		navigationOptions: {
-			drawerIcon: ({ tintColor }) => (<Icon name="home" size={24} style={{ color: tintColor }} />),
-		}
-  },
+// 	Home:{
+// 		screen:HomeScreenStack,
+// 		navigationOptions: {
+// 			drawerIcon: ({ tintColor }) => (<Icon name="home" size={24} style={{ color: tintColor }} />),
+// 		}
+//   },
 
-  Grocery:{
-		screen:GroceryNavigation,
-		navigationOptions: {
-			drawerIcon: ({ tintColor }) => (<Icon name="truck" size={24} style={{ color: tintColor }} />),
-		}
-  },
+//   Grocery:{
+// 		screen:GroceryNavigation,
+// 		navigationOptions: {
+// 			drawerIcon: ({ tintColor }) => (<Icon name="truck" size={24} style={{ color: tintColor }} />),
+// 		}
+//   },
 //   Restaurant:{
 // 		screen:RestaurantNavigation,	
 // 		navigationOptions: {
@@ -81,46 +81,46 @@ const AppDrawerNavigator = createDrawerNavigator({
 			drawerIcon: ({ tintColor }) => (<Icon name="phone-call" size={24} style={{ color: tintColor }} />),
 		}
   },
-  OfferZone:{
-		screen:OfferNavigation,
-		navigationOptions: {
-			drawerIcon: ({ tintColor }) => (<Icon name="tag" size={24} style={{ color: tintColor }} />),
-		}
-  },
-  MyOrders:{
-		screen:MyOrderNavigation,
-		navigationOptions: {
-			drawerIcon: ({ tintColor }) => (<Icon name="shopping-bag" size={24} style={{ color: tintColor }} />),
-		}
-  },
-  MyRewards:{
-		screen: RewardNavigation,
-		navigationOptions: {
-			drawerIcon: ({ tintColor }) => (<Icon name="gift" size={24} style={{ color: tintColor }} />),
-		}
-  },
-  MyCart:{
-		screen:CartNavigation,
-		navigationOptions: {
-			drawerIcon: ({ tintColor }) => (<Icon name="shopping-cart" size={24} style={{ color: tintColor }} />),
-		}
-  },
-  MyAccount:{
-		screen:MyProfileNavigation,
-		navigationOptions: {
-			drawerIcon: ({ tintColor }) => (<Icon name="user" size={24} style={{ color: tintColor }} />),
-		}
-  },
-  Search:{
-		screen:SearchNavigation,
-		navigationOptions: {
-			drawerIcon: ({ tintColor }) => (<Icon name="search" size={24} style={{ color: tintColor }} />),
-		}
-	},
+//   OfferZone:{
+// 		screen:OfferNavigation,
+// 		navigationOptions: {
+// 			drawerIcon: ({ tintColor }) => (<Icon name="tag" size={24} style={{ color: tintColor }} />),
+// 		}
+//   },
+//   MyOrders:{
+// 		screen:MyOrderNavigation,
+// 		navigationOptions: {
+// 			drawerIcon: ({ tintColor }) => (<Icon name="shopping-bag" size={24} style={{ color: tintColor }} />),
+// 		}
+//   },
+//   MyRewards:{
+// 		screen: RewardNavigation,
+// 		navigationOptions: {
+// 			drawerIcon: ({ tintColor }) => (<Icon name="gift" size={24} style={{ color: tintColor }} />),
+// 		}
+//   },
+//   MyCart:{
+// 		screen:CartNavigation,
+// 		navigationOptions: {
+// 			drawerIcon: ({ tintColor }) => (<Icon name="shopping-cart" size={24} style={{ color: tintColor }} />),
+// 		}
+//   },
+//   MyAccount:{
+// 		screen:MyProfileNavigation,
+// 		navigationOptions: {
+// 			drawerIcon: ({ tintColor }) => (<Icon name="user" size={24} style={{ color: tintColor }} />),
+// 		}
+//   },
+//   Search:{
+// 		screen:SearchNavigation,
+// 		navigationOptions: {
+// 			drawerIcon: ({ tintColor }) => (<Icon name="search" size={24} style={{ color: tintColor }} />),
+// 		}
+// 	},
 	
 },{
   contentComponent:CustomDrawerContentComponent,
-  initialRouteName :'Search',
+  initialRouteName :'Services',
 })
 
 const styles = StyleSheet.create({
