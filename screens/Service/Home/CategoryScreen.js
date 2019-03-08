@@ -249,12 +249,12 @@ export default class CategoryScreen extends Component {
         if(renderCoponentFlag){
             return(
                  <Container>
-                     <Header style={{backgroundColor:'#fff'}}>
+                     {/* <Header style={{backgroundColor:'#fff'}}>
                         <Right>
                             <Icon name='search' style={{fontSize:30,alignSelf:'center',paddingHorizontal:5}} />
                             <Input placeholder="Browse" />
                         </Right>
-                    </Header>
+                    </Header> */}
                     <CategoryList navigation = {this.props.navigation}/>
                 </Container>
             );

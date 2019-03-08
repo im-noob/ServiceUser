@@ -63,7 +63,8 @@ export default class HireMeScreen extends Component {
     render_HandleSendRequest = async () => {
         var connectionInfoLocal = '';
         var KEY = await AsyncStorage.getItem('Token');
-        var customerID = await AsyncStorage.getItem('UserID');
+        var customerID = await AsyncStorage.getItem('userID');
+        console.log("Customer ID:"+customerID);
         NetInfo.getConnectionInfo().then((connectionInfo) => {
             console.log('Initial, type: ' + connectionInfo.type + ', effectiveType: ' + connectionInfo.effectiveType);
             // connectionInfo.type = 'none';//force local loding
@@ -216,9 +217,9 @@ export default class HireMeScreen extends Component {
                         transparent={true}
                         visible={this.state.LodingModal}
                         onRequestClose={() => {
-                            // this.setState({
-                            // LodingModal:false
-                        // })
+                            this.setState({
+                            LodingModal:false
+                        })
                         }}>
                             <AdvLoder/>
                     </Modal>

@@ -127,12 +127,15 @@ export default class HistoryListScreen extends Component {
     componentDidMount() {
         setTimeout(() => {this.setState({renderCoponentFlag: true})}, 0);
         this.render_userServiceHist();
+        setInterval(() => {
+            this.render_userServiceHist();
+        }, 300000);
     }
 
     render_userServiceHist = async (argument) => {
         var connectionInfoLocal = '';
         var KEY = await AsyncStorage.getItem('Token');
-        var customerID = await AsyncStorage.getItem('UserID');
+        var customerID = await AsyncStorage.getItem('userID');
         NetInfo.getConnectionInfo().then((connectionInfo) => {
             console.log('Initial, type: ' + connectionInfo.type + ', effectiveType: ' + connectionInfo.effectiveType);
             // connectionInfo.type = 'none';//force local loding
@@ -140,7 +143,7 @@ export default class HistoryListScreen extends Component {
                 console.log('no internet ');
                 ToastAndroid.showWithGravityAndOffset(
                     'Oops! No Internet Connection',
-                    ToastAndroid.LONG,
+                    ToastAndroid.SHORT,
                     ToastAndroid.BOTTOM,
                     25,
                     50,
@@ -150,7 +153,7 @@ export default class HistoryListScreen extends Component {
                 console.log('yes internet '); 
                 this.setState({
                     LodingModal:true,
-                });
+                }); 
                 fetch(Global.API_URL+'render_userServiceHist_US', {
                     method: 'POST',
                     headers: {

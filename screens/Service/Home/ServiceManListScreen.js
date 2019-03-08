@@ -353,12 +353,12 @@ export default class ServiceManListScreen extends Component {
         if(renderCoponentFlag){
             return(
                 <Container>
-                    <Header style={{backgroundColor:'#fff'}}>
+                    {/* <Header style={{backgroundColor:'#fff'}}>
                     <Right style={{borderColor:'#848484',borderRadius:8,borderWidth:1}}>
                         <Icon name='magnify' style={{fontSize:30,alignSelf:'center',paddingHorizontal:5}} />
                         <Input placeholder="Browse" />
                     </Right>
-                    </Header>
+                    </Header> */}
                     <CategoryList navigation = {this.props.navigation}/>
                 </Container>
             );
