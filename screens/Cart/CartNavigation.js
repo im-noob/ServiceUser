@@ -15,7 +15,7 @@ import { Container, Content, Item,Title,Subtitle, View,Text, Button } from "nati
     constructor(props){
       super(props);
       this.state={
-        isItem:false
+        isItem:false 
       }
     }
 

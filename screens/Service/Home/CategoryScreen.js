@@ -8,6 +8,7 @@ import {
     TouchableOpacity,
     Dimensions,
     AsyncStorage,
+    Image,
     ToastAndroid,
     NetInfo
 } from "react-native";
@@ -26,12 +27,15 @@ import {
     Card,
     CardItem,
     List,
+    Item,
+    Icon,
     ListItem,
     Modal
 } from 'native-base';
 import {createDrawerNavigator,DrawerItems, SafeAreaView,createStackNavigator,NavigationActions } from 'react-navigation';
-import Icon  from 'react-native-vector-icons/Feather';
+//import Icon  from 'react-native-vector-icons/Feather';
 import Global from "../../../constants/Global";
+import DeckSwiperAdvancedExample from "../../ImageExample";
 
 
 
@@ -203,11 +207,17 @@ class CategoryList extends Component{
                             <Left>
                                 <Text style={{fontSize:20}}>{item.category}</Text>
                             </Left>
+                            <Body>
+                             <Icon name="ios-arrow-dropright-circle" style={{fontSize:30,color:'#030507'}}/>
+                            </Body>
                             <Right>
-                                    <Icon name="chevron-right" style={{fontSize:30,color:'#179ae1'}}/>
+                                  <Image source={{uri:'https://www.expatincroatia.com/wp-content/uploads/2013/09/how-to-find-a-doctor-in-croatia.jpg'}} style={{height:50,width:100,resizeMode:'contain'}}/>  
                             </Right>
                         </ListItem>
-                        }>
+                        }
+                         itemDivider
+                        >
+                        <View style={{marginBottom:10}}></View>
                     </List>
                 </Content>
             );
@@ -237,24 +247,66 @@ export default class CategoryScreen extends Component {
         super(props);
         this.state = {
             renderCoponentFlag: false,
+            street:'',
+            region:'',
+            postalCode:'',
+            country:'',
+            city:'',
+            name:'',
+            phone:''
         }
     }
     componentDidMount() {
         setTimeout(() => {this.setState({renderCoponentFlag: true})}, 0);
     }
 
+    _getLocation =async()=>{
+        try {
+            let profile = await AsyncStorage.getItem('location');
+           if(profile == null){
+            this.props.navigation.navigate('Location');
+           }
+            const {street,postalCode,country,Region,city} = JSON.parse(profile);
+            this.setState({street:street,postalCode:postalCode,country:country,region:Region,city:city});
+            
+        } catch (error) {
+            console.log('Error he location me ',error);
+        }
+    }
+
     render() {
         const {renderCoponentFlag} = this.state;
-        
+        this._getLocation();
         if(renderCoponentFlag){
             return(
                  <Container>
-                     {/* <Header style={{backgroundColor:'#fff'}}>
+                      <Header style={{backgroundColor:'#030507'}}>
+                          <Left>
+                       
+                          <Text style={{color:'#ffffff'}}> YOU ARE IN</Text>
+                        </Left>
                         <Right>
-                            <Icon name='search' style={{fontSize:30,alignSelf:'center',paddingHorizontal:5}} />
-                            <Input placeholder="Browse" />
+                        <Button  iconRight transparent onPress={()=>{this.props.navigation.navigate('Location');}}>
+                            <Icon color="#ffffff" name='ios-arrow-dropdown-circle' />
+                            <Text>{this.state.street},{this.state.city},{this.state.region}</Text>
+                        </Button>
                         </Right>
-                    </Header> */}
+                        </Header>
+                      <Header style={{backgroundColor:'#030507'}} searchBar rounded>
+                        <Item>
+                            <Icon name="ios-search" />
+                            <Input placeholder="Search" />
+                            <Icon name="ios-people" />
+                        </Item>
+                        <Button transparent>
+                            <Text>Search</Text>
+                        </Button>
+                        </Header>
+
+                        <Card style={{height:150}}>
+                            <DeckSwiperAdvancedExample/>
+                            
+                        </Card>
                     <CategoryList navigation = {this.props.navigation}/>
                 </Container>
             );

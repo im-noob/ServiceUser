@@ -80,7 +80,7 @@ export default class ConifirmOrder extends React.Component {
         this._getData();
     }
 
-
+ 
 
     _getData =async()=>{
         const { navigation } = this.props;

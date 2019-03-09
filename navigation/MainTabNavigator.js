@@ -13,6 +13,8 @@ import MyProfileNavigation from '../screens/MyProfile/MyProfileNavigation';
 import HomeScreenStack from '../screens/Home/HomeScreenStack';
 import SearchNavigation from '../screens/Search/SearchNavigation';
 import RestaurantNavigation from '../screens/Resturant/ResturantNavigation';
+import AboutUs from '../screens/AboutUs';
+import HelpScreen from '../screens/HelpScreen';
 
 const CustomDrawerContentComponent = (props) => (
   
@@ -117,6 +119,18 @@ const AppDrawerNavigator = createDrawerNavigator({
 // 			drawerIcon: ({ tintColor }) => (<Icon name="search" size={24} style={{ color: tintColor }} />),
 // 		}
 // 	},
+AboutUs:{
+	screen:AboutUs,
+	navigationOptions: {
+		drawerIcon: ({ tintColor }) => (<Icon name="watch" size={24} style={{ color: tintColor }} />),
+	}
+},
+Help:{
+	screen:HelpScreen,
+	navigationOptions: {
+		drawerIcon: ({ tintColor }) => (<Icon name="help-circle" size={24} style={{ color: tintColor }} />),
+	}
+},
 	
 },{
   contentComponent:CustomDrawerContentComponent,

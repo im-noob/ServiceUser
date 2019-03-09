@@ -197,7 +197,7 @@ export default class ServiceManProfileScreen extends Component {
                         </ScrollView>
                         <Button block  style={{backgroundColor:'#0088e0'}} onPress={()=>{
                             console.log("service profile screen button"); 
-                            this.props.navigation.navigate('HireMeScreen',{
+                            this.props.navigation.navigate('Auth',{
                                 profileData:ServiceManList
                             });
                         }}>

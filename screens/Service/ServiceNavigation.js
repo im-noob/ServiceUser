@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Text, View,Modal,Dimensions,TouchableOpacity} from 'react-native';
+import { Button, Text, View,Modal,Dimensions,AsyncStorage, TouchableOpacity,ActivityIndicator} from 'react-native';
 import { Container, Header, Content, Spinner } from 'native-base';
 import { createStackNavigator, createBottomTabNavigator,createAppContainer } from 'react-navigation';
 import Icon from 'react-native-vector-icons/Feather';
@@ -13,6 +13,8 @@ import HireMeScreen from './Home/HireMeScreen';
 import ServiceManListScreen from './Home/ServiceManListScreen';
 import Home from './Home';
 import MenuButton from '../../components/MenuButton';
+import LoginNavigation from '../Login/LoginNavigation';
+import LocationScreen from '../LocationScreen';
 
 // const {width,height} = Dimensions.get('window');
 
@@ -33,6 +35,48 @@ class HeaderTitle extends React.Component{
             )
     }
 }
+
+class Auth extends React.Component{
+    constructor(props){
+        super(props)
+       
+   
+}
+
+   async componentWillMount(){
+        let token =   await AsyncStorage.getItem('Token');
+        let userId = await AsyncStorage.getItem('userID');
+        let profile = await AsyncStorage.getItem('userProfileData');
+        const {navigation} = this.props;
+        const ServiceManList =navigation.getParam('profileData',"--")
+       if(token!=null && userId!= null && profile != null)
+            this.props.navigation.navigate('HireMeScreen',{
+                profileData:ServiceManList
+            });
+      else
+       {
+         this.props.navigation.navigate('LoginStack');
+            
+       }
+    }
+
+    render(){
+        return  <AdvLoder/>
+    }
+  
+}
+
+class AdvLoder extends React.Component{
+    render(){
+        const {width,height} = Dimensions.get('window');
+        return(
+            <View style={{ flex: 1, width:width, justifyContent: 'center', alignItems: 'center',backgroundColor:'#09090999'}}> 
+                <Spinner color='#079bff' size='large' style={{height:40}} />
+            </View>
+        )
+    }
+}
+
 // class MenuButton extends React.Component{
 // 	render(){
 // 		return(
@@ -51,11 +95,7 @@ const HomeStack = createStackNavigator(
         HomeScreen:{
             screen:CategoryScreen,
             navigationOptions: ({ navigation }) => ({
-                headerTitle: <HeaderTitle title="Service Manager"/>,
-                headerStyle: {
-                    backgroundColor: '#2874f0'
-                },
-                headerLeft: <MenuButton obj={navigation}  />,
+                header: null
             }),
             
             
@@ -101,8 +141,35 @@ const HomeStack = createStackNavigator(
             navigationOptions: ({ navigation }) => ({
                 header: null
             }),
+        },
+        Auth:{
+            screen:Auth,
+            navigationOptions: ({ navigation }) => ({
+                header: null
+            }),
+        
+        },
+        LoginStack:{
+            screen:LoginNavigation,
+            navigationOptions: ({ navigation }) => ({
+                header: null
+            }),
+          },
+        Location:{
+            screen:LocationScreen,
+            navigationOptions:({navigation})=>({
+                headerTitle:'ADD YOUR LOCATION',
+                headerStyle:{backgroundColor:'#030507'},
+                headerTitleStyle:{color:'#ffffff'},
+                headerLeft:<TouchableOpacity onPress={()=>{navigation.goBack()}}><Icon name='arrow-left-circle' color="#ffffff" size={30}/></TouchableOpacity>,
+                
+                
+            })
         }
     },
+    {
+    initialRouteName:'HomeScreen' 
+    }
 );
 
 

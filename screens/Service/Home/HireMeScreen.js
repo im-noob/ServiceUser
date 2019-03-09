@@ -46,7 +46,7 @@ export default class HireMeScreen extends Component {
         console.log("hireme contrller:",nav.getParam('profileData'));
         this.state = {
             renderCoponentFlag: false,
-            LodingModal: false,
+            LodingModal: false, 
             submitButtonDisalbe:false,
             workerAvtar: nav.getParam('profileData', {avtar:'https://i.imgur.com/uj2JaPH.jpg'}).avtar,
             workerName:nav.getParam('profileData', {name:'-----'}).name,

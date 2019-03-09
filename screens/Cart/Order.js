@@ -534,7 +534,7 @@ export default class Order extends Component {
 
          
          );
-     }
+     }  
 
     //  Checkout click
     _checkoutPress =async()=>{

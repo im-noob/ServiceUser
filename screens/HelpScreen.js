@@ -35,9 +35,11 @@ import {
 } from 'native-base';
 import {createDrawerNavigator,DrawerItems, SafeAreaView,createStackNavigator,NavigationActions } from 'react-navigation';
 import Icon  from 'react-native-vector-icons/MaterialCommunityIcons';
+import HeaderTitle from "../components/HeaderTitle";
+import { Styles } from "../constants/Styles";
 const {width,height} = Dimensions.get('window');
 
-export default class ExampleScreenThird extends Component {
+export default class HelpScreen extends Component {
     constructor(props){
         super(props);
         this.state = {
@@ -53,13 +55,20 @@ export default class ExampleScreenThird extends Component {
         const {renderCoponentFlag} = this.state;
         if(renderCoponentFlag){
             return(
-                <Container>
-                    <Content>
-                        <Button bordered dark onPress={()=>{
-              this.props.navigation.navigate('HomeScreen');
-            }}>
-                            <Text> Back to home</Text>
-                        </Button>
+                <Container span>
+                    <HeaderTitle/>
+                    <Content >
+                        <Header>
+                            <Title>Customer Support</Title>
+                        </Header>
+                        <Card>
+                            <CardItem>
+                               <View style={{height:500}}>
+                                    <Text style={{fontWeight:'900',}}>For More inforamtion call us on </Text>
+                                    <Text style={{fontWeight:'900',}}>+91 9608240612</Text>
+                               </View>
+                            </CardItem>
+                        </Card>
                     </Content>
                 </Container>
             );
