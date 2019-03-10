@@ -6,12 +6,12 @@ const cards = [
   {
     text: 'Card One',
     name: 'One',
-    image:'http://www.irctc.provogue.com/skin/frontend/default/provogue/images/additional_offer.png'// source(uri'./img/swiper-1.png'),
+    image:'https://res.cloudinary.com/urbanclap/image/upload/q_auto,f_auto,fl_progressive:steep/categories/category_v2/category_eea56eb0.png'// source(uri'./img/swiper-1.png'),
   },
   {
     text: 'Card Two',
     name: 'Two',
-    image:'https://t3.ftcdn.net/jpg/01/17/69/74/240_F_117697431_ZnRN2FRlefOL82un2ParnKUfiC77XpYx.jpg'// source(uri'./img/swiper-1.png'),
+    image:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT8qLoDiwBEFOTdom9L_8sd8Uxl39RjUH9zl38U7kdnAPOsu5C9'// source(uri'./img/swiper-1.png'),
   },
   {
     text: 'Card Three',
