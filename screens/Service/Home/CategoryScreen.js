@@ -147,7 +147,7 @@ class CategoryList extends Component{
                 }).then((response) => response.json())
                 .then((responseJson) => {
                     var itemsToSet = responseJson.data;
-                    console.log('resp:',itemsToSet);
+                    console.log('resp:',responseJson);
                     if(responseJson.received == 'yes'){
                         this.setState({
                             cat_subcat_list:itemsToSet,
@@ -257,17 +257,27 @@ export default class CategoryScreen extends Component {
         }
     }
     componentDidMount() {
-        setTimeout(() => {this.setState({renderCoponentFlag: true})}, 0);
+       // setTimeout(() => {this.setState({renderCoponentFlag: true})}, 0);
+       this._getLocation();
     }
 
     _getLocation =async()=>{
         try {
-            let profile = await AsyncStorage.getItem('location');
-           if(profile == null){
-            this.props.navigation.navigate('Location');
-           }
+
+            let profile =null;
+            do{
+            profile = await AsyncStorage.getItem('location');
+          
+           if(profile != null){
             const {street,postalCode,country,Region,city} = JSON.parse(profile);
             this.setState({street:street,postalCode:postalCode,country:country,region:Region,city:city});
+            this.setState({renderCoponentFlag: true})
+           
+           }
+           else
+           this.props.navigation.navigate('Location');
+        }while(profile==null)
+           
             
         } catch (error) {
             console.log('Error he location me ',error);
@@ -276,10 +286,12 @@ export default class CategoryScreen extends Component {
 
     render() {
         const {renderCoponentFlag} = this.state;
-        this._getLocation();
+    
         if(renderCoponentFlag){
             return(
                  <Container>
+                     <Header style={{backgroundColor:'#030507'}}/>
+                     <Content>
                       <Header style={{backgroundColor:'#030507'}}>
                           <Left>
                        
@@ -294,9 +306,11 @@ export default class CategoryScreen extends Component {
                         </Header>
                       <Header style={{backgroundColor:'#030507'}} searchBar rounded>
                         <Item>
-                            <Icon name="ios-search" />
-                            <Input placeholder="Search" />
-                            <Icon name="ios-people" />
+                            <Button transparent full onPress={()=>{this.props.navigation.navigate('Search')}}>
+                            <Icon name="ios-search" color='#030507' />
+                            <Text style={{color:'#a4a4a5'}}>Search</Text>
+                           
+                            </Button>
                         </Item>
                         <Button transparent>
                             <Text>Search</Text>
@@ -308,6 +322,7 @@ export default class CategoryScreen extends Component {
                             
                         </Card>
                     <CategoryList navigation = {this.props.navigation}/>
+                    </Content>
                 </Container>
             );
         }else{

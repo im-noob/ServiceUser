@@ -64,10 +64,11 @@ export default class LocationScreen extends Component {
       // console.log(address);
         if(address.flag){
             let msgArray=address.msg;
-            msgArray.forEach(element => {
+            msgArray.forEach(async element => {
                 console.log(element);
                 const {name,region,postalCode,country,city} = element;
                 this.setState({street:name,region:region,postalCode:postalCode,country:country,city:city});
+                await AsyncStorage.setItem('location',JSON.stringify(element))
             });
         }
         else{
@@ -97,7 +98,7 @@ export default class LocationScreen extends Component {
         if(renderCoponentFlag){
             return(
                 <Container>
-                   <Header style={{backgroundColor:'#030507'}} searchBar rounded>
+                   {/* <Header style={{backgroundColor:'#030507'}} searchBar rounded>
                         <Item>
                             <Icon name="ios-search" />
                             <Input placeholder="Search" />
@@ -106,7 +107,7 @@ export default class LocationScreen extends Component {
                         <Button transparent>
                             <Text>Search for area, street name</Text>
                         </Button>
-                        </Header>
+                        </Header> */}
                     <Content>
                         <Card>
                             <CardItem>

@@ -253,6 +253,7 @@ class CategoryList extends Component{
         });
         console.log(connectionInfoLocal);
     }
+    
     render(){
         const {renderCoponentFlag} = this.state;
         const ServiceManList = this.props.navigation.getParam('ServiceManList', []);

@@ -54,20 +54,22 @@ export default class AboutUs extends Component {
         const {renderCoponentFlag} = this.state;
         if(renderCoponentFlag){
             return(
-                <Container span>
-                    <HeaderTitle/>
+                <Container span >
+                     <Header style={{backgroundColor:'#030507'}} />
                     <Content >
-                        <Header>
+                        <Header style={{backgroundColor:'#030507'}} >
                             <Title>About Us</Title>
                         </Header>
                         <View style={styles.container}>
                             <View style={[styles.content,styles.contentbody]}>
-                                <Text style={styles.text}>Ganga Service helps you to find the right Service
-                                professionals for activities important to you. Whether you are looking to decorate your home, get candid pictures of your wedding, plan your 
-                                kid's birthday or get healthier, we are sure shot destination for your home service needs. Our vision is to 
-                                use technology and smart processes to structure the highly unorganized services market in India.
-                                Ganga Service aspires to make hiring a service professional as easy and straightforward as Amazon
-                                or Flipkart have made buying products.
+                                <Text style={styles.text}>
+Ganga Service helps you to find the right Service
+professionals for activities important to you. Whether you are looking to decorate your home, get candid pictures
+ of your wedding, plan your kid's birthday or get healthier, we are sure shot destination for your home service
+  needs. Our vision is to 
+use technology and smart processes to structure the highly unorganized services market in India.
+Ganga Service aspires to make hiring a service professional as easy and straightforward as Amazon
+or Flipkart have made buying products.
                                  </Text>
                             </View>
                             

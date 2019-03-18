@@ -7,7 +7,7 @@ import {
     Dimensions,
     AsyncStorage,
     ToastAndroid,
-    NetInfo,
+    NetInfo,TimePickerAndroid,
     Modal,
 } from "react-native";
 import { 
@@ -53,15 +53,32 @@ export default class HireMeScreen extends Component {
             workerID: nav.getParam('profileData', {workerID:'--'}).workerID,
             workList: nav.getParam('profileData',{workList:[{   'key':'work','value':'000-0000' , 'workSubCatId':'10' },{   'key':'work1','value':'000-00001' , 'workSubCatId':'1' }]}).workList,
             WorkSubCatID: '0',
-            message: 'Nan',
-            title: 'Nan',
+            message: '',
+            title: '',
+            time:'',
+            isFocusInputTitle:true,
+            isFocusInputMessage:false,
+           
         }
     }
+
     componentDidMount() {
         setTimeout(() => {this.setState({renderCoponentFlag: true})}, 0);
+        
     }
+
+    /**flag false in input */
+    _FocusInput =() =>{
+        try {
+            this.setState({isFocusInputTitle:false,isFocusInputMessage:false});
+            } catch (error) {
+                console.log("Error he re : ",error);
+            }
+    }
+
+
     render_HandleSendRequest = async () => {
-        var connectionInfoLocal = '';
+      /***   var connectionInfoLocal = '';
         var KEY = await AsyncStorage.getItem('Token');
         var customerID = await AsyncStorage.getItem('userID');
         console.log("Customer ID:"+customerID);
@@ -158,9 +175,55 @@ export default class HireMeScreen extends Component {
                     })
                 });
             }
-        });
-        console.log(connectionInfoLocal);
+        });*/
+      this.props.navigation.navigate('AddAddress',{ 
+                                                        workerID: this.state.workerID,
+                                                        WorkSubCatID: this.state.WorkSubCatID,
+                                                        customerID: customerID,
+                                                        message: this.state.message,
+                                                        title: this.state.title,
+                                                    });
+        
     }
+
+    _proceed = async()=>{
+        try {
+            var customerID = await AsyncStorage.getItem('userID');
+            if(this.state.title =='' || this.state.message == '')
+            ToastAndroid.showWithGravity('Enter Work Title',ToastAndroid.LONG,ToastAndroid.TOP);
+        else
+        this.props.navigation.navigate('AddAddress',{ 
+                                        workerID: this.state.workerID,
+                                        WorkSubCatID: this.state.WorkSubCatID,
+                                        customerID: customerID,
+                                        message: this.state.message,
+                                        title: this.state.title,
+                                    }); 
+        } catch (error) {
+            
+        }
+           
+                
+    }
+
+    _timePicker =async()=>{
+        try {
+            const {action, hour, minute} = await TimePickerAndroid.open({
+              hour: 14,
+              minute: 0,
+              is24Hour: false, // Will display '2 PM'
+            });
+            if (action !== TimePickerAndroid.dismissedAction) {
+              // Selected hour (0-23), minute (0-59)
+              this.setState({time:(hour+" : "+minute)});
+              console.log(hour+" : "+minute);
+            }
+            
+          } catch ({code, message}) {
+            console.warn('Cannot open time picker', message);
+          }
+    }
+    
     render() {
         const {renderCoponentFlag} = this.state;
         let workList = this.state.workList.map( (s, i) => {
@@ -182,7 +245,7 @@ export default class HireMeScreen extends Component {
                                     
                                     <Picker    
                                         mode="dropdown"
-                                        style={{  width: '70%', height:32 }}
+                                        style={{  width: '70%', height:32}}
                                         selectedValue={this.state.SelectedCategory}
                                         onValueChange={(itemValue, itemIndex) => {
                                             console.log("itemvalue:",itemValue+" Item inedex:"+itemIndex);
@@ -197,16 +260,27 @@ export default class HireMeScreen extends Component {
                                     <Input 
                                         placeholder='Enter your work Title'
                                         onChangeText={(text) => this.setState({title:text})} 
+                                        style={{fontWeight:'500',}}
+                                        autoFocus={this.state.isFocusInputTitle}
+                                        returnKeyType="next"
+                                        onSubmitEditing={async()=>{await this._FocusInput();
+                                                                    await this.setState({isFocusInputMessage:true});
+                                                                    await console.log(this.state.isFocusInputMessage);
+                                                                }}
                                         />
                                 </Item>
                                 <Textarea 
                                     rowSpan={5} bordered 
                                     placeholder="Type Some Message..." 
                                     onChangeText={(text) => this.setState({message:text})} 
+                                    style={{fontWeight:'900'}}
+                                    autoFocus={this.state.isFocusInputMessage}
+                                    onSubmitEditing={()=>{this._proceed();}}
                                     />
+                          
                                 <Button block danger
-                                disabled={this.state.submitButtonDisalbe} onPress={this.render_HandleSendRequest}>
-                                    <Text>Send Him A Request</Text>
+                                    disabled={this.state.submitButtonDisalbe} onPress={()=>{this._proceed();}}>
+                                    <Text>Proceed</Text>
                                 </Button>
                             </Form>
                         </Card>

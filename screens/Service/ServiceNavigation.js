@@ -15,6 +15,15 @@ import Home from './Home';
 import MenuButton from '../../components/MenuButton';
 import LoginNavigation from '../Login/LoginNavigation';
 import LocationScreen from '../LocationScreen';
+import AboutUs from '../AboutUs';
+import HelpScreen from '../HelpScreen';
+import HomeScreen from '../Search/Service/HomeScreen';
+import LoginSingUpV2Screen from '../Login/LoginSingUpV2Screen';
+import OTPScreen from '../Login/OTPScreen';
+import { OrderNavigation } from '../OrderSystem/OrderNavigation';
+import AddAddressScreen from '../OrderSystem/AddAddress';
+import ServiceTime from '../OrderSystem/ServiceTime';
+import ThanksNote from '../OrderSystem/ThanksNote';
 
 // const {width,height} = Dimensions.get('window');
 
@@ -44,9 +53,13 @@ class Auth extends React.Component{
 }
 
    async componentWillMount(){
-        let token =   await AsyncStorage.getItem('Token');
-        let userId = await AsyncStorage.getItem('userID');
-        let profile = await AsyncStorage.getItem('userProfileData');
+    let token =null;
+    let userId =null;
+    let profile =null;
+       do{
+        token =   await AsyncStorage.getItem('Token');
+        userId = await AsyncStorage.getItem('userID');
+      profile = await AsyncStorage.getItem('userProfileData');
         const {navigation} = this.props;
         const ServiceManList =navigation.getParam('profileData',"--")
        if(token!=null && userId!= null && profile != null)
@@ -58,10 +71,11 @@ class Auth extends React.Component{
          this.props.navigation.navigate('LoginStack');
             
        }
+    }while(token==null && userId== null && profile == null)
     }
 
     render(){
-        return  <AdvLoder/>
+        return( this.props.navigation.goBack())
     }
   
 }
@@ -77,18 +91,7 @@ class AdvLoder extends React.Component{
     }
 }
 
-// class MenuButton extends React.Component{
-// 	render(){
-// 		return(
-// 			<View style={{backgroundColor:"#2874f0"}}>
-// 				<TouchableOpacity onPress={() => { this.props.obj.toggleDrawer() } }>
-//                     {/* <Icon name="menu" style={{color: 'white', padding: 10, marginLeft:5, fontSize: 35}}/> */}
-//                     <Icon name="align-left" style={{color: 'white', padding: 10, marginLeft:5, fontSize: 35}}/>
-// 				</TouchableOpacity>
-// 			</View>
-// 		);
-// 	}
-// }
+
 
 const HomeStack = createStackNavigator(
     {
@@ -127,6 +130,15 @@ const HomeStack = createStackNavigator(
                 },
             }),
         },
+        Order:{
+            screen:OrderNavigation,
+            navigationOptions:({ navigation }) => ({
+                headerTitle:<HeaderTitle title=" Order "/>,
+                headerStyle: {
+                    backgroundColor: '#2874f0'
+                }
+            })
+        },
         HireMeScreen: {
             screen: HireMeScreen,
             navigationOptions: ({ navigation }) => ({
@@ -150,10 +162,15 @@ const HomeStack = createStackNavigator(
         
         },
         LoginStack:{
-            screen:LoginNavigation,
-            navigationOptions: ({ navigation }) => ({
-                header: null
-            }),
+            screen:LoginSingUpV2Screen,
+            navigationOptions:({navigation})=>({
+                headerTitle:'Phone Number',
+                headerStyle:{backgroundColor:'#030507'},
+                headerTitleStyle:{color:'#ffffff'},
+                headerLeft:<TouchableOpacity onPress={()=>{navigation.goBack()}}><Icon name='arrow-left-circle' color="#ffffff" size={30}/></TouchableOpacity>,
+                
+                
+            })
           },
         Location:{
             screen:LocationScreen,
@@ -165,10 +182,45 @@ const HomeStack = createStackNavigator(
                 
                 
             })
+        },
+        Search:{
+            screen:HomeScreen,
+            navigationOptions:({navigation})=>({
+                headerTitle:'SEARCH',
+                headerStyle:{backgroundColor:'#030507'},
+                headerTitleStyle:{color:'#ffffff'},
+                headerLeft:<TouchableOpacity onPress={()=>{navigation.goBack()}}><Icon name='arrow-left-circle' color="#ffffff" size={30}/></TouchableOpacity>,
+                
+                
+            })
+        },
+        OTP:{
+            screen:OTPScreen,
+            navigationOptions: ({ navigation }) => ({
+                header: null
+            }),
+          },
+        AddAddress:{
+            screen:AddAddressScreen,
+            navigationOptions:({navigation}) => ({
+                headerTitle: "Add Address"
+            })
+        },
+        Time:{
+            screen:ServiceTime,
+            navigationOptions:({navigation})=>({
+                headerTitle:"Select Time"
+            })
+        },
+        Successfual:{
+            screen:ThanksNote,
+            navigationOptions:({navigation})=>({
+                headerTitle:"Done"
+            })
         }
     },
     {
-    initialRouteName:'HomeScreen' 
+        initialRouteName:'HomeScreen' 
     }
 );
 
@@ -199,12 +251,7 @@ const HistoryStack = createStackNavigator(
                 },
             }),
         } ,
-        // HistoryDetailsStack: {
-        //     screen:HistoryDetailsStack,
-        //     navigationOptions: ({ navigation }) => ({
-        //         header: null
-        //     }), 
-        // }
+      
         HistoryDetailsScreen: {
             screen:HistoryDetailsScreen,
             navigationOptions: ({ navigation }) => ({
@@ -219,25 +266,21 @@ const HistoryStack = createStackNavigator(
 );
 
 
-// HomeScreen: {
-//     screen: Home,
-//     navigationOptions: ({ navigation }) => ({
-//       headerTitle: null,
-//       headerStyle: {
-//         backgroundColor: '#2874f0'
-//       },
-        // headerLeft: <MenuButton obj={navigation}  />,
-//     }),
-//   },
 
 
 
 const ServiceTab = createBottomTabNavigator(
     {
-        // Home:HireMeStack,
+      
         HomeStack,
         HistoryStack,
-        // History:HistoryDetailsStack,
+        AboutUs:{
+                    screen:AboutUs
+                },
+        Help:{
+            screen:HelpScreen,
+        },
+      
 
     },
     {
@@ -249,6 +292,11 @@ const ServiceTab = createBottomTabNavigator(
                 iconName =`home${focused?'':''}`;
             } else if (routeName === 'HistoryStack') {
                 iconName = `repeat${focused ? '' : ''}`;
+            }
+            else if (routeName === 'AboutUs') {
+                iconName = `watch${focused ? '' : ''}`;
+            }else if(routeName ==='Help'){
+                iconName =`help-circle${focused?'':''}`;
             }
         
         

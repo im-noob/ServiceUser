@@ -352,6 +352,7 @@ export default class SingupScreen extends Component {
              forgot_sendOTPButtonDisable:false,
              askOTP:false,
         })
+        this.props.navigation.goBack();
     }
     
     render() {
@@ -364,7 +365,7 @@ export default class SingupScreen extends Component {
                             <View style={{marginTop:15,height:height*(0.4),flex:4}}>
                                 <View style={{margin:10,flexDirection:'row',justifyContent: 'space-between',}}>
                                     <View style={{flexDirection:'row'}}>
-                                        <Text style={{color:'#fff',fontSize:25,fontWeight:'600',alignSelf:'center'}}>GangaCart</Text>
+                                        <Text style={{color:'#fff',fontSize:25,fontWeight:'600',alignSelf:'center'}}>Ganga Services</Text>
                                         <Image style={{height:30,width:30,alignSelf:'center',marginHorizontal:5}} source={{uri:'https://i.imgur.com/QtXcFQM.png'}}/>
                                     </View>
                                     <TouchableOpacity style={{alignContent:'flex-end',alignItems:'flex-end',alignSelf:'center'}} onPress={this.forgotPasswordStart} >

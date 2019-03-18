@@ -45,29 +45,79 @@ export default class HelpScreen extends Component {
         this.state = {
             renderCoponentFlag: false,
             LodingModal: false,
+            title:'',
+            description:''
         }
     }
     componentDidMount() {
+
         setTimeout(() => {this.setState({renderCoponentFlag: true})}, 0);
     }
 
+    _send = ()=>{
+        let title =this.state.title;
+        let dis =this.state.description;
+        if(title !='' && dis != ''){
+            console.log(title + dis);
+            ToastAndroid.showWithGravity('Thanks for messaging us. We try to be as responsive as possible. Well get back to you soon.',
+            ToastAndroid.LONG,ToastAndroid.CENTER);
+            this.setState({description:'',title:''});
+        }
+        else{
+            ToastAndroid.showWithGravity('Somthing Wrong',
+            ToastAndroid.LONG,ToastAndroid.CENTER); 
+        }
+    }
     render() {
         const {renderCoponentFlag} = this.state;
         if(renderCoponentFlag){
             return(
-                <Container span>
-                    <HeaderTitle/>
+                <Container >
+                    <Header style={{backgroundColor:'#030507'}} />
                     <Content >
-                        <Header>
+                        <Header style={{backgroundColor:'#030507'}}>
                             <Title>Customer Support</Title>
                         </Header>
+                       
                         <Card>
-                            <CardItem>
-                               <View style={{height:500}}>
-                                    <Text style={{fontWeight:'900',}}>For More inforamtion call us on </Text>
-                                    <Text style={{fontWeight:'900',}}>+91 9608240612</Text>
+                        <CardItem>
+                               <View >
+                                   <Text style={{color:'#2454a0',fontStyle:'italic'}}>Hi  Thanks for getting in touch with us . 
+                                       Please send us any questions you may have.</Text>
+
+                                    <Text style={{fontWeight:'900'}}></Text>
+                                    <Text style={{fontWeight:'900',color:'#030e21'}}>Call us on : +91 9608240612</Text>
                                </View>
                             </CardItem>
+                            <CardItem>
+                                <Item regular>
+                                    <Input 
+                                    onChangeText={(text)=>{this.setState({title:text})}}
+                                    placeholder='Enter Your Title'
+                                    value={this.state.title} />
+                                </Item>
+                                
+                            </CardItem>
+                            <CardItem>
+                            <Form>
+                                <Textarea 
+                                 onChangeText={(text)=>{this.setState({description:text})}}
+                                 rowSpan={5} style={{width:width-35}} 
+                                 value={this.state.description}
+                                 bordered placeholder="Enter Title Description :" 
+                                
+                                 returnKeyType='send'
+                                 />
+                            </Form>
+                            </CardItem>
+                           
+                                <Button onPress={()=>{this._send();}} bordered full iconRight>
+                                    <Text>Send</Text>
+                                    <Icon name="rocket" size={25} color="#030507"/>
+                                    
+                                </Button>
+                         
+                            
                         </Card>
                     </Content>
                 </Container>

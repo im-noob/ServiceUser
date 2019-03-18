@@ -5,6 +5,7 @@ import {
     View,
     AsyncStorage,
     NetInfo,
+    Image,
     Dimensions,
     Modal,
     ToastAndroid
@@ -135,8 +136,11 @@ export default class SubCategoryScreen extends Component {
                                 this.render_ServiceManList(item.key);
                             }}>
                                 <Left>
-                                    <Text style={{fontSize:20}}>{item.value}</Text>
+                                    <Image source={{uri:'https://www.expatincroatia.com/wp-content/uploads/2013/09/how-to-find-a-doctor-in-croatia.jpg'}} style={{height:50,width:100,resizeMode:'contain'}}/>  
                                 </Left>
+                                <Body>
+                                    <Text style={{fontSize:20}}>{item.value}</Text>
+                                </Body>
                                 <Right>
                                         <Icon name="chevron-right" style={{fontSize:30,color:'#179ae1'}}/>
                                 </Right>

@@ -86,6 +86,7 @@ export default class ForgotScreen extends Component {
              forgot_sendOTPButtonDisable:false,
              askOTP:false,
         })
+        this.props.navigation.goBack();
     }
     lastOTPSendSecCount = 0;
     OTP = 0 ;
@@ -364,7 +365,7 @@ export default class ForgotScreen extends Component {
                                 <View style={{marginTop:20,height:height*(0.2),flex:3}}>
                                     <View style={{margin:15,flexDirection:'row',justifyContent: 'space-between',}}>
                                         <View style={{flexDirection:'row'}}>
-                                            <Text style={{color:'#fff',fontSize:25,fontWeight:'600',alignSelf:'center'}}>GangaCart</Text>
+                                            <Text style={{color:'#fff',fontSize:25,fontWeight:'600',alignSelf:'center'}}>Ganga Services</Text>
                                             <Image style={{height:30,width:30,alignSelf:'center',marginHorizontal:5}} source={{uri:'https://i.imgur.com/QtXcFQM.png'}}/>
                                         </View>
                                         <TouchableOpacity style={{alignContent:'flex-end',alignItems:'flex-end',alignSelf:'center'}} onPress={this.forgotPasswordStart} >

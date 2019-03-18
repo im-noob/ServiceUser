@@ -10,6 +10,11 @@ import {
 import { createStackNavigator, createSwitchNavigator,createAppContainer } from 'react-navigation';
 import MainTabNavigator from './MainTabNavigator';
 import LoginNavigation from '../screens/Login/LoginNavigation';
+import LoginSingUpScreen from '../screens/Login/LoginSingUpScreen';
+import OTPScreen from '../screens/Login/OTPScreen';
+import AddAddressScreen from '../screens/OrderSystem/AddAddress';
+import ServiceTime from '../screens/OrderSystem/ServiceTime';
+import ThanksNote from '../screens/OrderSystem/ThanksNote';
 
 
 class AuthLoadingScreen extends React.Component {
@@ -23,6 +28,7 @@ class AuthLoadingScreen extends React.Component {
 
   // Fetch the token from storage then navigate to our appropriate place
   _bootstrapAsync = async () => {
+    await AsyncStorage.removeItem('Token');
     const userToken = await AsyncStorage.getItem('Token');
 
     // This will switch to the App screen or Auth screen and this loading
@@ -72,8 +78,15 @@ const AuthStack = createStackNavigator({
 
 const SwetichNav =  createSwitchNavigator(
   {
+   
     AuthLoading: {
       screen:AuthLoadingScreen,
+      navigationOptions:{
+        header:null,
+      }
+    },
+    Auth: {
+      screen:LoginSingUpScreen,
       navigationOptions:{
         header:null,
       }
@@ -84,12 +97,13 @@ const SwetichNav =  createSwitchNavigator(
         title:"hehh"
       }
     },
-    Auth: {
-      screen:AuthStack,
+    OTP:{
+      screen:OTPScreen,
       navigationOptions:{
-        header:null,
+        title:"Login / SignUp"
       }
-    },
+    }
+   
   },
   { 
     initialRouteName: 'AuthLoading',
@@ -98,6 +112,7 @@ const SwetichNav =  createSwitchNavigator(
     navigationOptions: {
       header:null
     },
+   
   }
 );
 
